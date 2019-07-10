@@ -9,7 +9,7 @@
 # Author
 [Bill Odida](https://github.com/Wolfof420Street) ![](https://img.shields.io/badge/Programmer-Verified-brightgreen.svg)
 # Description
-LeagueyNdogo is an android application that allows users view all Leagues from different countries for 2019 season ,  view all fixtures for any league in 2019 season,   view H2H statistics for a fixture in 2019 season
+GameFix is an android application that allows users view all Leagues from different countries for 2019 season ,  view all fixtures for any league in 2019 season,   view H2H statistics for a fixture in 2019 season
 
 # Requirements
 
