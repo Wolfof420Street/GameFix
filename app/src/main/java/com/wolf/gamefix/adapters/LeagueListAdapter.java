@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wolf.gamefix.R;
 import com.wolf.gamefix.models.League;
 
@@ -48,6 +50,8 @@ public class LeagueListAdapter extends RecyclerView.Adapter<LeagueListAdapter.Le
         TextView awayNameTextView;
         @BindView(R.id.homeNameTextView) TextView homeNameTextView;
         @BindView(R.id.venueTextView) TextView venueTextView;
+        @BindView(R.id.logoImageView)
+        ImageView logoImageView;
 
 
         private Context mContext;
@@ -59,6 +63,7 @@ public class LeagueListAdapter extends RecyclerView.Adapter<LeagueListAdapter.Le
         }
 
         public void bindFixture(League league) {
+            Picasso.get().load(league.getLogo("")).into(logoImageView);
             homeNameTextView.setText(league.getName(""));
             awayNameTextView.setText(league.getCountry(""));
             venueTextView.setText(league.getSeason(""));
