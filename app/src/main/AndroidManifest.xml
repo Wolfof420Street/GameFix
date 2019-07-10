@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wolf.gamefix">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -9,12 +10,11 @@
         android:roundIcon="@drawable/intro1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StatsActivity"></activity>
-        <activity android:name=".InfoActivity" />
-        <activity android:name=".ResultsActivity" />
-        <activity android:name=".FixturesActivity" />
-        <activity android:name=".LeaguesActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.InfoActivity" />
+        <activity android:name=".ui.ResultsActivity" />
+        <activity android:name=".ui.FixturesActivity" />
+        <activity android:name=".ui.LeaguesActivity" />
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MyIntro"
+            android:name=".ui.MyIntro"
             android:theme="@style/FullscreenTheme" />
     </application>
 

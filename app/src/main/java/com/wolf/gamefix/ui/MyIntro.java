@@ -1,10 +1,13 @@
-package com.wolf.gamefix;
+package com.wolf.gamefix.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
+import com.wolf.gamefix.AppIntroSampleSlider;
+import com.wolf.gamefix.R;
+import com.wolf.gamefix.ui.MainActivity;
 
 
 public class MyIntro extends AppIntro {

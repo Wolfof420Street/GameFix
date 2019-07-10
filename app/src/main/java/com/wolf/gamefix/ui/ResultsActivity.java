@@ -1,7 +1,9 @@
-package com.wolf.gamefix;
+package com.wolf.gamefix.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.wolf.gamefix.R;
 
 public class ResultsActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.wolf.gamefix;
+package com.wolf.gamefix.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.wolf.gamefix.R;
+
 public class MainActivity extends AppCompatActivity {
 
     GridView androidGridView;
@@ -64,34 +66,34 @@ public class MainActivity extends AppCompatActivity {
         androidGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id) {
-                if (position == 1) {
+                if (position == 0) {
                     Intent i = new Intent(MainActivity.this, FixturesActivity.class);
                     startActivity(i);
-                } else if (position == 2) {
+                } else if (position == 1) {
                     Intent i = new Intent(MainActivity.this, ResultsActivity.class);
                     startActivity(i);
 
-                } else if (position == 3) {
+                } else if (position == 2) {
                     Intent i = new Intent(MainActivity.this, LeaguesActivity.class);
                     startActivity(i);
 
-                } else if (position == 4) {
+                } else if (position == 3) {
                     Intent i = new Intent(MainActivity.this, InfoActivity.class);
                     startActivity(i);
+
+                } else if (position == 4) {
+                    Intent i = new Intent();
+                    i.setAction(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse("https://twitter.com/GameFlix11"));
+                    startActivity(Intent.createChooser(i, "GamerFlix"));
 
                 } else if (position == 5) {
                     Intent i = new Intent();
                     i.setAction(Intent.ACTION_VIEW);
                     i.setData(Uri.parse("https://twitter.com/GameFlix11"));
                     startActivity(Intent.createChooser(i, "GamerFlix"));
-
-                } else if (position == 6) {
-                    Intent i = new Intent();
-                    i.setAction(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse("https://twitter.com/GameFlix11"));
-                    startActivity(Intent.createChooser(i, "GamerFlix"));
                 }
-                else if (position == 7) {
+                else if (position == 6) {
                     Intent i = new Intent();
                     i.setAction(Intent.ACTION_VIEW);
                     i.setData(Uri.parse("https://www.facebook.com/Game-Flix-2049387918697639/"));

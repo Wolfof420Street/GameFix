@@ -10,6 +10,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'SPORT_TOKEN', SportToken
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -21,6 +24,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.android.support:recyclerview-v7:+'
+    implementation 'com.android.support:design:28.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     implementation 'com.github.paolorotolo:appintro:4.1.0'

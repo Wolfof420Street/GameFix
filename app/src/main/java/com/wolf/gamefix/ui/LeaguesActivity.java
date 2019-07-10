@@ -1,13 +1,15 @@
-package com.wolf.gamefix;
+package com.wolf.gamefix.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class FixturesActivity extends AppCompatActivity {
+import com.wolf.gamefix.R;
+
+public class LeaguesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fixtures);
+        setContentView(R.layout.activity_leagues);
     }
 }
