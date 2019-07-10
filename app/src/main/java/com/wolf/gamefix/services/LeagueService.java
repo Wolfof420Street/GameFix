@@ -50,6 +50,9 @@ public class LeagueService {
                     String season = leaguesJSON.getString("season");
                     String logo = leaguesJSON.getString("logo");
                     String flag = leaguesJSON.getString("flag");
+
+                    League league = new League(name, country, season, logo, flag);
+                    leagues.add(league);
                 }
             }
         } catch (IOException e) {
