@@ -22,12 +22,12 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class LeaguesActivity extends AppCompatActivity {
+public class LeaguesListActivity extends AppCompatActivity {
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     private LeagueListAdapter mAdapter;
-    public static final String TAG = LeaguesActivity.class.getSimpleName();
+    public static final String TAG = LeaguesListActivity.class.getSimpleName();
     private ArrayList<League> leagues = new ArrayList<>();
 
     @Override
@@ -50,13 +50,13 @@ public class LeaguesActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 leagues = leagueService.processResults(response);
 
-                LeaguesActivity.this.runOnUiThread(new Runnable() {
+                LeaguesListActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mAdapter = new LeagueListAdapter(getApplicationContext(), leagues);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
-                                new LinearLayoutManager(LeaguesActivity.this);
+                                new LinearLayoutManager(LeaguesListActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
                     }

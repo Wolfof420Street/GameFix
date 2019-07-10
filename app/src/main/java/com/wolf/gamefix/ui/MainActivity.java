@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id) {
                 if (position == 0) {
-                    Intent i = new Intent(MainActivity.this, FixturesActivity.class);
+                    Intent i = new Intent(MainActivity.this, FixturesListActivity.class);
                     startActivity(i);
                 } else if (position == 1) {
                     Intent i = new Intent(MainActivity.this, ResultsActivity.class);
                     startActivity(i);
 
                 } else if (position == 2) {
-                    Intent i = new Intent(MainActivity.this, LeaguesActivity.class);
+                    Intent i = new Intent(MainActivity.this, LeaguesListActivity.class);
                     startActivity(i);
 
                 } else if (position == 3) {

@@ -19,12 +19,12 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class FixturesActivity extends AppCompatActivity {
+public class FixturesListActivity extends AppCompatActivity {
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     private FixtureListAdapter mAdapter;
-    public static final String TAG = FixturesActivity.class.getSimpleName();
+    public static final String TAG = FixturesListActivity.class.getSimpleName();
     private ArrayList<Fixture> fixtures = new ArrayList<>();
 
     @Override
@@ -47,13 +47,13 @@ public class FixturesActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 fixtures = sportService.processResults(response);
 
-                FixturesActivity.this.runOnUiThread(new Runnable() {
+                FixturesListActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mAdapter = new FixtureListAdapter(getApplicationContext(), fixtures);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
-                                new LinearLayoutManager(FixturesActivity.this);
+                                new LinearLayoutManager(FixturesListActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
                     }
