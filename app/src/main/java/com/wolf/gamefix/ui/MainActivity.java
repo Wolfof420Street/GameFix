@@ -1,141 +1,89 @@
 package com.wolf.gamefix.ui;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
+import android.util.Log;
 
 import com.wolf.gamefix.R;
+import com.wolf.gamefix.adapters.LeagueAdapter;
+import com.wolf.gamefix.models.League;
+import com.wolf.gamefix.services.LeagueService;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    GridView androidGridView;
+    @BindView(R.id.league_recycler_view)
+    RecyclerView leagueRecyclerView;
 
-    Integer[] imageIDs = {
-            R.drawable.icons8_football_ball_50, R.drawable.icons8_graph_50, R.drawable.icons8_league_of_legends_50,
-            R.drawable.icons8_info_50, R.drawable.icons8_twitter_50, R.drawable.icons8_instagram_50,
-            R.drawable.icons8_facebook_50,
-    };
+    private LeagueAdapter leagueAdapter;
 
-    public boolean isFirstStart;
-    Context mcontext;
+    private ArrayList<League> mLeagues = new ArrayList<>();
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Leagues");
 
+        createProgressDialog();
 
-
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //  Intro App Initialize SharedPreferences
-                SharedPreferences getSharedPreferences = PreferenceManager
-                        .getDefaultSharedPreferences(getBaseContext());
-
-                //  Create a new boolean and preference and set it to true
-                isFirstStart = getSharedPreferences.getBoolean("firstStart", true);
-
-                //  Check either activity or app is open very first time or not and do action
-                if (isFirstStart) {
-
-                    //  Launch application introduction screen
-                    Intent i = new Intent(MainActivity.this, MyIntro.class);
-                    startActivity(i);
-                    SharedPreferences.Editor e = getSharedPreferences.edit();
-                    e.putBoolean("firstStart", false);
-                    e.apply();
-                }
-            }
-        });
-        t.start();
-
-        androidGridView = (GridView) findViewById(R.id.gridview_android_example);
-        androidGridView.setAdapter(new ImageAdapterGridView(this));
-
-        androidGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent,
-                                    View v, int position, long id) {
-                if (position == 0) {
-                    Intent i = new Intent(MainActivity.this, FixturesListActivity.class);
-                    startActivity(i);
-                } else if (position == 1) {
-                    Intent i = new Intent(MainActivity.this, ResultsActivity.class);
-                    startActivity(i);
-
-                } else if (position == 2) {
-                    Intent i = new Intent(MainActivity.this, LeaguesListActivity.class);
-                    startActivity(i);
-
-                } else if (position == 3) {
-                    Intent i = new Intent(MainActivity.this, InfoActivity.class);
-                    startActivity(i);
-
-                } else if (position == 4) {
-                    Intent i = new Intent();
-                    i.setAction(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse("https://twitter.com/GameFlix11"));
-                    startActivity(Intent.createChooser(i, "GamerFlix"));
-
-                } else if (position == 5) {
-                    Intent i = new Intent();
-                    i.setAction(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse("https://twitter.com/GameFlix11"));
-                    startActivity(Intent.createChooser(i, "GamerFlix"));
-                }
-                else if (position == 6) {
-                    Intent i = new Intent();
-                    i.setAction(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse("https://www.facebook.com/Game-Flix-2049387918697639/"));
-                    startActivity(Intent.createChooser(i, "GamerFlix"));
-                }
-            }
-        });
+        ButterKnife.bind(this);
+        initRecyclerView();
 
     }
 
-    public class ImageAdapterGridView extends BaseAdapter {
-        private Context mContext;
+    public void initRecyclerView()
+    {
+        progressDialog.show();
+        final LeagueService leagueService = new LeagueService();
+        leagueService.getLeagues(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
 
-        public ImageAdapterGridView(Context c) {
-            mContext = c;
-        }
-
-        public int getCount() {
-            return imageIDs.length;
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView mImageView;
-
-            if (convertView == null) {
-                mImageView = new ImageView(mContext);
-                mImageView.setLayoutParams(new GridView.LayoutParams(130, 130));
-                mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                mImageView.setPadding(16, 16, 16, 16);
-            } else {
-                mImageView = (ImageView) convertView;
+                        progressDialog.hide();
+                    }
+                });
             }
-            mImageView.setImageResource(imageIDs[position]);
-            return mImageView;
-        }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mLeagues= leagueService.processGetAllLeaguesResults(response);
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.hide();
+                        leagueAdapter = new LeagueAdapter(mLeagues,MainActivity.this);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+                        leagueRecyclerView.setLayoutManager(layoutManager);
+                    /*    leagueRecyclerView.setAdapter(leagueAdapter);*/
+                    }
+                });
+            }
+        });
+    }
+
+    private void createProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Fetching Leagues...");
+        progressDialog.setCancelable(false);
     }
 }

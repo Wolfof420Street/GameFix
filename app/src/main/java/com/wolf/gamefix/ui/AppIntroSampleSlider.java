@@ -1,4 +1,4 @@
-package com.wolf.gamefix;
+package com.wolf.gamefix.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

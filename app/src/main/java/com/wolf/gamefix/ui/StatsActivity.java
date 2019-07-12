@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.wolf.gamefix.R;
 
-public class ResultsActivity extends AppCompatActivity {
+public class StatsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_results);
+        setContentView(R.layout.activity_stats);
     }
 }

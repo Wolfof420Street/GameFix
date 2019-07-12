@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
-import com.wolf.gamefix.AppIntroSampleSlider;
 import com.wolf.gamefix.R;
-import com.wolf.gamefix.ui.MainActivity;
-
 
 public class MyIntro extends AppIntro {
     // Please DO NOT override onCreate. Use init
@@ -49,8 +46,7 @@ public class MyIntro extends AppIntro {
 
     @Override
     public void onDonePressed() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class );
-        startActivity(intent);
+        // Do something here when users click or tap tap on Done button.
         finish();
     }
 
